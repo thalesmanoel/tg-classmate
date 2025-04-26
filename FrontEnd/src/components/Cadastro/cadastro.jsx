@@ -33,7 +33,7 @@ const FormSection = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h2`
+const Titulo = styled.h2`
   color: #fff;
   margin-bottom: 20px;
   text-align: center;
@@ -55,7 +55,7 @@ const CheckboxContainer = styled.div`
   color: gray;
 `;
 
-const Button = styled.button`
+const Botao = styled.button`
   background-color: #00c2f5;
   color: #fff;
   border: none;
@@ -79,7 +79,7 @@ const Cadastro = () => {
         </LogoSection>
 
         <FormSection>
-          <Title>Faça o seu cadastro</Title>
+          <Titulo>Faça o seu cadastro</Titulo>
 
           <Input type="text" placeholder="Nome completo" />
           <Input type="email" placeholder="E-mail" />
@@ -98,7 +98,7 @@ const Cadastro = () => {
             </label>
           </CheckboxContainer>
 
-          <Button>Confirmar</Button>
+          <Botao>Confirmar</Botao>
         </FormSection>
       </Card>
     </Container>

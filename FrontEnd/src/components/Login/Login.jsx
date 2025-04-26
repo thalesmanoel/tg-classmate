@@ -1,17 +1,153 @@
-import React from 'react';
-import './style.css';
+import styled from 'styled-components';
+import logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
-function Login() {
+
+const Container = styled.div`
+  background-color: #222;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`
+
+const Card = styled.div`
+  background-color: #005763;
+  padding: 40px;
+  border-radius: 10px;
+  display: flex;
+  width: 800px;
+  max-width: 90%;
+  gap: 40px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+  }
+`
+
+const FormSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`
+
+const LogoSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f0d9b5;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+
+  img {
+    width: 120px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    img {
+      width: 80px;
+    }
+  }
+`
+
+const Titulo = styled.h2`
+  color: #fff;
+  margin-bottom: 20px;
+  margin-left: 65px;
+  font-size: 2rem;
+
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+`
+
+const Input = styled.input`
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #00404a;
+  color: #fff;
+`
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  color: #d3d3d3;
+  font-size: 0.9rem;
+`
+
+const Botao = styled.button`
+  background-color: #00c2f5;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #00a5d1;
+  }
+`
+
+const EsqueciSenha = styled.a`
+  margin-top: 15px;
+  color: #d3d3d3;
+  font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const Linha = styled.span`
+  border-bottom: 2px solid #FFF;
+  padding-bottom: 2px;
+`
+
+const Cadastro = styled.h3`
+  text-align: center;
+`
+
+const Login = () => {
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Login</h2>
-        <input type="text" placeholder="Usuário" />
-        <input type="password" placeholder="Senha" />
-        <button>Entrar</button>
-      </div>
-    </div>
+    <Container>
+      <Card>
+        <FormSection>
+          <Titulo>Faça o seu login</Titulo>
+          <Input type="email" placeholder="E-mail" />
+          <Input type="password" placeholder="Senha" />
+          <CheckboxContainer>
+            <input type="checkbox" />
+            <span>Permanecer conectado</span>
+          </CheckboxContainer>
+          <Botao>Confirmar</Botao>
+          <EsqueciSenha href="#">Esqueci a senha</EsqueciSenha>
+          <Cadastro>Não tem uma conta? Cadastre-se <Linha><Link to={`/cadastro`}>AQUI !</Link></Linha></Cadastro>
+        </FormSection>
+        <LogoSection>
+          <img src={logo} style={{width: '90%'}} alt="Logo" />
+        </LogoSection>
+      </Card>
+    </Container>
   );
-}
+};
 
 export default Login;
