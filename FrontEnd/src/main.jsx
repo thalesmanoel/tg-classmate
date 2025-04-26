@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './routes/Home.jsx'
 import Login from './routes/Login.jsx'
+import CadastroComponent from './routes/Cadastro.jsx'
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -84,6 +85,7 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/login' element={<Login />}/>
+        <Route path='/cadastro' element={<CadastroComponent />}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
