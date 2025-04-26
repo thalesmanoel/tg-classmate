@@ -36,6 +36,7 @@ const FormSection = styled.div`
 const Title = styled.h2`
   color: #fff;
   margin-bottom: 20px;
+  text-align: center;
 `;
 
 const Input = styled.input`
