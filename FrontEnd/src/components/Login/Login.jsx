@@ -124,6 +124,7 @@ const Linha = styled.span`
 
 const Cadastro = styled.h3`
   text-align: center;
+  color: #fff;
 `
 
 const Login = () => {
