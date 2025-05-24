@@ -1,7 +1,7 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
-
 
 const Container = styled.div`
   background-color: #222;
@@ -124,23 +124,68 @@ const Linha = styled.span`
 
 const Cadastro = styled.h3`
   text-align: center;
+  color: #fff;
 `
 
 const Login = () => {
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const navigate = useNavigate();
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    setErro('');
+
+    try {
+      const res = await fetch('http://localhost:3001/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErro(data.erro || 'Erro ao fazer login');
+        return;
+      }
+
+      localStorage.setItem('token', data.token);
+
+      navigate('/dashboard');
+
+    } catch (erro) {
+      setErro('Erro de conexão com o servidor', erro);
+    }
+  }
+
   return (
     <Container>
       <Card>
         <FormSection>
           <Titulo>Faça o seu login</Titulo>
-          <Input type="email" placeholder="E-mail" />
-          <Input type="password" placeholder="Senha" />
+          <Input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="Senha"
+            value={senha}
+            onChange={e => setSenha(e.target.value)}
+          />
           <CheckboxContainer>
             <input type="checkbox" />
             <span>Permanecer conectado</span>
           </CheckboxContainer>
-          <Botao>Confirmar</Botao>
+          <Botao onClick={handleLogin}>Confirmar</Botao>
+          {erro && <p style={{ color: 'red', marginLeft: '65px' }}>{erro}</p>}
           <EsqueciSenha href="#">Esqueci a senha</EsqueciSenha>
-          <Cadastro>Não tem uma conta? Cadastre-se <Linha><Link to={`/cadastro`}>AQUI !</Link></Linha></Cadastro>
+          <Cadastro> Não tem uma conta? Cadastre-se <Linha><Link to={`/cadastro`}>AQUI !</Link></Linha></Cadastro>
         </FormSection>
         <LogoSection>
           <img src={logo} style={{width: '90%'}} alt="Logo" />
