@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 
 const Container = styled.div`
@@ -71,6 +73,47 @@ const Botao = styled.button`
 `;
 
 const Cadastro = () => {
+
+  const navigate = useNavigate();
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [repetirSenha, setRepetirSenha] = useState('');
+  const [roleId, setRoleId] = useState('1');
+  const [erro, setErro] = useState('');
+
+  async function handleCadastro(e) {
+    e.preventDefault();
+    setErro('');
+
+    if (senha !== repetirSenha) {
+      setErro('As senhas não coincidem');
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:3001/auth/cadastro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, senha, role: roleId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErro(data.erro || 'Erro ao cadastrar usuário');
+        return;
+      }
+
+      alert('Cadastro realizado com sucesso! Você já pode fazer login.');
+      navigate('/login');
+
+    } catch {
+      setErro('Erro de conexão com o servidor');
+    }
+  }
+
   return (
     <Container>
       <Card>
@@ -81,24 +124,62 @@ const Cadastro = () => {
         <FormSection>
           <Titulo>Faça o seu cadastro</Titulo>
 
-          <Input type="text" placeholder="Nome completo" />
-          <Input type="email" placeholder="E-mail" />
-          <Input type="password" placeholder="Senha" />
-          <Input type="password" placeholder="Repetir senha" />
+          <form onSubmit={handleCadastro}>
+            <Input
+              type="text"
+              placeholder="Nome completo"
+              value={nome}
+              onChange={e => setNome(e.target.value)}
+              required
+            />
+            <Input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Senha"
+              value={senha}
+              onChange={e => setSenha(e.target.value)}
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Repetir senha"
+              value={repetirSenha}
+              onChange={e => setRepetirSenha(e.target.value)}
+              required
+            />
 
-          <CheckboxContainer>
-            <label>
-              <input type="checkbox" /> Sou aluno
-            </label>
-            <label>
-              <input type="checkbox" /> Sou professor
-            </label>
-            <label>
-              <input type="checkbox" /> Sou administrador
-            </label>
-          </CheckboxContainer>
+            <CheckboxContainer>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="1"
+                  checked={roleId === '1'}
+                  onChange={e => setRoleId(e.target.value)}
+                />{' '}
+                Sou aluno
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="2"
+                  checked={roleId === '2'}
+                  onChange={e => setRoleId(e.target.value)}
+                />{' '}
+                Sou professor
+              </label>
+            </CheckboxContainer>
 
-          <Botao>Confirmar</Botao>
+            <Botao type="submit">Confirmar</Botao>
+          </form>
+          {erro && <ErroMsg>{erro}</ErroMsg>}
         </FormSection>
       </Card>
     </Container>
