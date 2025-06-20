@@ -33,7 +33,16 @@ const FormSection = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinha os inputs ao centro */
+    width: 100%;
+  }
 `;
+
 
 const Titulo = styled.h2`
   color: #fff;
@@ -48,6 +57,10 @@ const Input = styled.input`
   border: none;
   background-color: #00404a;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CheckboxContainer = styled.div`
