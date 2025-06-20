@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { FaUserCircle, FaBell, FaChartLine, FaBars, FaThLarge } from 'react-icons/fa';
+import {
+  FaUserCircle,
+  FaBell,
+  FaChartLine,
+  FaBars,
+  FaThLarge,
+  FaArrowCircleRight
+} from 'react-icons/fa';
 import { IoMdBook, IoMdCard, IoMdHelpCircle } from 'react-icons/io';
 
 const Container = styled.div`
@@ -56,7 +63,7 @@ const MenuButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: ${props => (props.open ? 'flex-start' : 'center')};
-  font-size: 16px;
+  font-size: 20px;
   gap: 10px;
   padding: 12px;
   width: 100%;
@@ -80,7 +87,6 @@ const MenuButton = styled.button`
     display: ${props => (props.open ? 'inline' : 'none')};
   }
 `;
-
 
 const ToggleButton = styled(MenuButton)`
   margin-top: 10px;
@@ -115,17 +121,40 @@ const Card = styled.div`
   border-radius: 12px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+`;
+
+const CardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 const CardTitle = styled.h3`
   font-size: 20px;
-  margin-bottom: 10px;
   font-weight: bold;
+  margin: 0;
 `;
 
-const CardItem = styled.p`
-  margin: 5px 0;
+const CardAction = styled.div`
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #00c2f5;
+  }
+`;
+
+const CardList = styled.ul`
+  padding-left: 20px;
+  margin: 0;
+`;
+
+const CardItem = styled.li`
   font-size: 15px;
+  margin-bottom: 6px;
 `;
 
 const MenuAluno = () => {
@@ -164,31 +193,51 @@ const MenuAluno = () => {
 
         <Grid>
           <Card bg="#1c1c1c">
-            <CardTitle>DASHBOARD</CardTitle>
-            <CardItem>12 Mentorias</CardItem>
-            <CardItem>Calendário de Mentorias</CardItem>
-            <CardItem>Estatísticas</CardItem>
+            <CardHeader>
+              <CardTitle>DASHBOARD</CardTitle>
+              <CardAction><FaArrowCircleRight size={20} /></CardAction>
+            </CardHeader>
+            <CardList>
+              <CardItem>12 Mentorias</CardItem>
+              <CardItem>Calendário de Mentorias</CardItem>
+              <CardItem>Estatísticas</CardItem>
+            </CardList>
           </Card>
 
           <Card bg="#00bcd4">
-            <CardTitle>Mentoria</CardTitle>
-            <CardItem>Matérias</CardItem>
-            <CardItem>Professores</CardItem>
+            <CardHeader>
+              <CardTitle>Mentoria</CardTitle>
+              <CardAction><FaArrowCircleRight size={20} /></CardAction>
+            </CardHeader>
+            <CardList>
+              <CardItem>Matérias</CardItem>
+              <CardItem>Professores</CardItem>
+            </CardList>
           </Card>
 
           <Card bg="#002f6c">
-            <CardTitle>Fazer Prova</CardTitle>
-            <CardItem>ENEM</CardItem>
-            <CardItem>Vestibular</CardItem>
-            <CardItem>Matérias</CardItem>
+            <CardHeader>
+              <CardTitle>Fazer Prova</CardTitle>
+              <CardAction><FaArrowCircleRight size={20} /></CardAction>
+            </CardHeader>
+            <CardList>
+              <CardItem>ENEM</CardItem>
+              <CardItem>Vestibular</CardItem>
+              <CardItem>Matérias</CardItem>
+            </CardList>
           </Card>
 
           <Card bg="#0d1d44">
-            <CardTitle>Provas Feitas</CardTitle>
-            <CardItem>Exercícios</CardItem>
-            <CardItem>ENEM</CardItem>
-            <CardItem>Vestibulares</CardItem>
-            <CardItem>Concursos</CardItem>
+            <CardHeader>
+              <CardTitle>Provas Feitas</CardTitle>
+              <CardAction><FaArrowCircleRight size={20} /></CardAction>
+            </CardHeader>
+            <CardList>
+              <CardItem>Exercícios</CardItem>
+              <CardItem>ENEM</CardItem>
+              <CardItem>Vestibulares</CardItem>
+              <CardItem>Concursos</CardItem>
+            </CardList>
           </Card>
         </Grid>
       </MainContent>
