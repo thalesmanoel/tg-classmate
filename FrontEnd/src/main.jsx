@@ -6,6 +6,7 @@ import Home from './routes/Home.jsx'
 import Login from './routes/Login.jsx'
 import CadastroComponent from './routes/Cadastro.jsx'
 import Dashboard from './routes/Dashboard.jsx'
+import MenuAluno from './components/Menu/MenuAluno.jsx'
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -88,6 +89,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/login' element={<Login />}/>
         <Route path='/cadastro' element={<CadastroComponent />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path='/menu' element={<MenuAluno />}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

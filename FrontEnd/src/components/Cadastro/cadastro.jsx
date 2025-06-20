@@ -57,11 +57,10 @@ const Input = styled.input`
   border: none;
   background-color: #00404a;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  max-width: 300px;
 `;
+
 
 const CheckboxContainer = styled.div`
   display: flex;
