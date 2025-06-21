@@ -7,6 +7,7 @@ import Login from './routes/Login.jsx'
 import CadastroComponent from './routes/Cadastro.jsx'
 import Dashboard from './routes/Dashboard.jsx'
 import MenuAluno from './components/Menu/MenuAluno.jsx'
+import TipoDeProva from './components/TipoProva/TipoProva.jsx'
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -90,6 +91,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/cadastro' element={<CadastroComponent />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/menuAluno' element={<MenuAluno />}/>
+        <Route path='/tipo-prova' element={<TipoDeProva />}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
