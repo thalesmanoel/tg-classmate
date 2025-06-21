@@ -27,6 +27,8 @@ export async function login(req, res) {
 
   try {
     const usuario = await UserModel.buscarUsuarioPorEmail(email);
+    console.log('Usuário encontrado:', usuario); // Log para debug
+
     if (!usuario) {
       return res.status(401).json({ erro: 'Usuário não encontrado' });
     }
@@ -42,7 +44,14 @@ export async function login(req, res) {
       { expiresIn: '2h' }
     );
 
-    res.status(200).json({ mensagem: 'Login bem-sucedido', token });
+    const resposta = {
+      mensagem: 'Login bem-sucedido',
+      token,
+      role: usuario.role_nome, 
+    };
+    console.log('Resposta enviada:', resposta); // Log para debug
+
+    res.status(200).json(resposta);
   } catch (erro) {
     console.error('Erro no login:', erro);
     res.status(500).json({ erro: 'Erro no login', detalhes: erro });

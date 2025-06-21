@@ -89,7 +89,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/login' element={<Login />}/>
         <Route path='/cadastro' element={<CadastroComponent />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
-        <Route path='/menu' element={<MenuAluno />}/>
+        <Route path='/menuAluno' element={<MenuAluno />}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
