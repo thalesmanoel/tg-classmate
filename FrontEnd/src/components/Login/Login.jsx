@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
+import { jwtDecode } from 'jwt-decode';
 
 const Container = styled.div`
   background-color: #222;
@@ -10,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-`
+`;
 
 const Card = styled.div`
   background-color: #005763;
@@ -28,13 +29,13 @@ const Card = styled.div`
     padding: 20px;
     gap: 20px;
   }
-`
+`;
 
 const FormSection = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const LogoSection = styled.div`
   flex: 1;
@@ -57,7 +58,7 @@ const LogoSection = styled.div`
       width: 80px;
     }
   }
-`
+`;
 
 const Titulo = styled.h2`
   color: #fff;
@@ -69,7 +70,7 @@ const Titulo = styled.h2`
     text-align: center;
     font-size: 1.5rem;
   }
-`
+`;
 
 const Input = styled.input`
   margin-bottom: 10px;
@@ -78,7 +79,7 @@ const Input = styled.input`
   border: none;
   background-color: #00404a;
   color: #fff;
-`
+`;
 
 const CheckboxContainer = styled.div`
   display: flex;
@@ -87,7 +88,7 @@ const CheckboxContainer = styled.div`
   margin: 10px 0;
   color: #d3d3d3;
   font-size: 0.9rem;
-`
+`;
 
 const Botao = styled.button`
   background-color: #00c2f5;
@@ -103,7 +104,7 @@ const Botao = styled.button`
   &:hover {
     background-color: #00a5d1;
   }
-`
+`;
 
 const EsqueciSenha = styled.a`
   margin-top: 15px;
@@ -115,20 +116,19 @@ const EsqueciSenha = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
 const Linha = styled.span`
   border-bottom: 2px solid #FFF;
   padding-bottom: 2px;
-`
+`;
 
 const Cadastro = styled.h3`
   text-align: center;
   color: #fff;
-`
+`;
 
 const Login = () => {
-
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
@@ -154,10 +154,28 @@ const Login = () => {
 
       localStorage.setItem('token', data.token);
 
-      navigate('/dashboard');
+      const decoded = jwtDecode(data.token);
+      console.log('Decoded token:', decoded);
 
-    } catch (erro) {
-      setErro('Erro de conexão com o servidor', erro);
+      const role = decoded.role;
+
+      if (!role) {
+        setErro('Erro: Role não encontrada no token');
+        return;
+      }
+
+      if (role === 1) {
+        navigate('/menuAluno');
+      } else if (role === 2) {
+        navigate('/menu-professor');
+      } else if (role === 3) {
+        navigate('/menu-admin');
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      console.error(err);
+      setErro('Erro de conexão com o servidor ou decodificação do token');
     }
   }
 
@@ -185,10 +203,16 @@ const Login = () => {
           <Botao onClick={handleLogin}>Confirmar</Botao>
           {erro && <p style={{ color: 'red', marginLeft: '65px' }}>{erro}</p>}
           <EsqueciSenha href="#">Esqueci a senha</EsqueciSenha>
-          <Cadastro> Não tem uma conta? Cadastre-se <Linha><Link to={`/cadastro`}>AQUI !</Link></Linha></Cadastro>
+          <Cadastro>
+            Não tem uma conta? Cadastre-se{' '}
+            <Linha>
+              <Link to={`/cadastro`}>AQUI !</Link>
+            </Linha>
+          </Cadastro>
         </FormSection>
+
         <LogoSection>
-          <img src={logo} style={{width: '90%'}} alt="Logo" />
+          <img src={logo} style={{ width: '90%' }} alt="Logo" />
         </LogoSection>
       </Card>
     </Container>

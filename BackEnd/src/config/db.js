@@ -13,4 +13,14 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
+// Teste de conexão:
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error('Erro ao conectar no banco:', err);
+  } else {
+    console.log('Conexão com banco MySQL estabelecida com sucesso!');
+    connection.release(); 
+  }
+});
+
 export default db;
