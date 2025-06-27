@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import ModalSucesso from '../ModalSucesso/ModalSucesso';
 
 const Container = styled.div`
   background-color: #222;
@@ -91,7 +92,6 @@ const ErroMsg = styled.p`
 `;
 
 const Cadastro = () => {
-
   const navigate = useNavigate();
 
   const [nome, setNome] = useState('');
@@ -100,6 +100,7 @@ const Cadastro = () => {
   const [repetirSenha, setRepetirSenha] = useState('');
   const [roleId, setRoleId] = useState('1');
   const [erro, setErro] = useState('');
+  const [mostrarModal, setMostrarModal] = useState(false);
 
   async function handleCadastro(e) {
     e.preventDefault();
@@ -124,83 +125,92 @@ const Cadastro = () => {
         return;
       }
 
-      alert('Cadastro realizado com sucesso! Você já pode fazer login.');
-      navigate('/login');
+      setMostrarModal(true);
 
     } catch {
       setErro('Erro de conexão com o servidor');
     }
   }
 
+  const irParaLogin = () => {
+    setMostrarModal(false);
+    navigate('/login');
+  };
+
   return (
-    <Container>
-      <Card>
-        <LogoSection>
-          <img src={logo} alt="Logo" style={{ width: '90%', marginBottom: '20px' }} />
-        </LogoSection>
+    <>
+      <Container>
+        <Card>
+          <LogoSection>
+            <img src={logo} alt="Logo" style={{ width: '90%', marginBottom: '20px' }} />
+          </LogoSection>
 
-        <FormSection>
-          <Titulo>Faça o seu cadastro</Titulo>
+          <FormSection>
+            <Titulo>Faça o seu cadastro</Titulo>
 
-          <form onSubmit={handleCadastro}>
-            <Input
-              type="text"
-              placeholder="Nome completo"
-              value={nome}
-              onChange={e => setNome(e.target.value)}
-              required
-            />
-            <Input
-              type="email"
-              placeholder="E-mail"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-            <Input
-              type="password"
-              placeholder="Senha"
-              value={senha}
-              onChange={e => setSenha(e.target.value)}
-              required
-            />
-            <Input
-              type="password"
-              placeholder="Repetir senha"
-              value={repetirSenha}
-              onChange={e => setRepetirSenha(e.target.value)}
-              required
-            />
+            <form onSubmit={handleCadastro}>
+              <Input
+                type="text"
+                placeholder="Nome completo"
+                value={nome}
+                onChange={e => setNome(e.target.value)}
+                required
+              />
+              <Input
+                type="email"
+                placeholder="E-mail"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+              />
+              <Input
+                type="password"
+                placeholder="Senha"
+                value={senha}
+                onChange={e => setSenha(e.target.value)}
+                required
+              />
+              <Input
+                type="password"
+                placeholder="Repetir senha"
+                value={repetirSenha}
+                onChange={e => setRepetirSenha(e.target.value)}
+                required
+              />
 
-            <CheckboxContainer>
-              <label>
-                <input
-                  type="radio"
-                  name="role"
-                  value="1"
-                  checked={roleId === '1'}
-                  onChange={e => setRoleId(e.target.value)}
-                />{' '}
-                Sou aluno
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="role"
-                  value="2"
-                  checked={roleId === '2'}
-                  onChange={e => setRoleId(e.target.value)}
-                />{' '}
-                Sou professor
-              </label>
-            </CheckboxContainer>
+              <CheckboxContainer>
+                <label>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="1"
+                    checked={roleId === '1'}
+                    onChange={e => setRoleId(e.target.value)}
+                  />{' '}
+                  Sou aluno
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="2"
+                    checked={roleId === '2'}
+                    onChange={e => setRoleId(e.target.value)}
+                  />{' '}
+                  Sou professor
+                </label>
+              </CheckboxContainer>
 
-            <Botao type="submit">Confirmar</Botao>
-          </form>
-          {erro && <ErroMsg>{erro}</ErroMsg>}
-        </FormSection>
-      </Card>
-    </Container>
+              <Botao type="submit">Confirmar</Botao>
+            </form>
+
+            {erro && <ErroMsg>{erro}</ErroMsg>}
+          </FormSection>
+        </Card>
+      </Container>
+
+      {mostrarModal && <ModalSucesso onConfirm={irParaLogin} />}
+    </>
   );
 };
 
