@@ -9,6 +9,7 @@ import {
   FaArrowCircleRight
 } from 'react-icons/fa';
 import { IoMdBook, IoMdCard, IoMdHelpCircle } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -171,6 +172,7 @@ const CardItem = styled.li`
 
 const TipoProva = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -204,7 +206,7 @@ const TipoProva = () => {
         <Title>TIPO DE PROVA</Title>
 
         <Grid>
-          <Card>
+          <Card onClick={() => navigate('/anos-enem')} style={{ cursor: 'pointer' }}>
             <CardHeader>
               <CardTitle>ENEM</CardTitle>
               <CardAction><FaArrowCircleRight /></CardAction>
@@ -227,7 +229,7 @@ const TipoProva = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Provas - Plataforma de Estudos</CardTitle>
+              <CardTitle>Provas - ClassMate</CardTitle>
               <CardAction><FaArrowCircleRight /></CardAction>
             </CardHeader>
           </Card>
