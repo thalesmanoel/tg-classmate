@@ -6,12 +6,14 @@ import { jwtDecode } from 'jwt-decode';
 
 const Container = styled.div`
   background-color: #222;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 0 10px; // reduzido para não causar overflow horizontal
+  overflow-x: hidden;
 `;
+
 
 const Card = styled.div`
   background-color: #005763;
