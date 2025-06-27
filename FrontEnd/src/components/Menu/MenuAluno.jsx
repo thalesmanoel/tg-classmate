@@ -9,6 +9,7 @@ import {
   FaArrowCircleRight
 } from 'react-icons/fa';
 import { IoMdBook, IoMdCard, IoMdHelpCircle } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -157,6 +158,20 @@ const CardItem = styled.li`
   margin-bottom: 6px;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  display: contents;
+
+  &:hover,
+  &:focus,
+  &:visited,
+  &:active {
+    text-decoration: none;
+    color: inherit;
+  }
+`;
+
 const MenuAluno = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -215,17 +230,19 @@ const MenuAluno = () => {
             </CardList>
           </Card>
 
-          <Card bg="#002f6c">
-            <CardHeader>
-              <CardTitle>Fazer Prova</CardTitle>
-              <CardAction><FaArrowCircleRight size={20} /></CardAction>
-            </CardHeader>
-            <CardList>
-              <CardItem>ENEM</CardItem>
-              <CardItem>Vestibular</CardItem>
-              <CardItem>Matérias</CardItem>
-            </CardList>
-          </Card>
+          <StyledLink to="/tipo-prova">
+            <Card bg="#002f6c">
+              <CardHeader>
+                <CardTitle>Fazer Prova</CardTitle>
+                <CardAction><FaArrowCircleRight size={20} /></CardAction>
+              </CardHeader>
+              <CardList>
+                <CardItem>ENEM</CardItem>
+                <CardItem>Vestibular</CardItem>
+                <CardItem>Matérias</CardItem>
+              </CardList>
+            </Card>
+          </StyledLink>
 
           <Card bg="#0d1d44">
             <CardHeader>

@@ -8,6 +8,8 @@ import CadastroComponent from './routes/Cadastro.jsx'
 import Dashboard from './routes/Dashboard.jsx'
 import MenuAluno from './components/Menu/MenuAluno.jsx'
 import TipoDeProva from './components/TipoProva/TipoProva.jsx'
+import TelaQuestoes from './components/QuestoesProva/QuestoesProva.jsx'
+import AnosEnem from './components/AnosEnem/AnosEnem.jsx'
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -92,6 +94,8 @@ createRoot(document.getElementById('root')).render(
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/menuAluno' element={<MenuAluno />}/>
         <Route path='/tipo-prova' element={<TipoDeProva />}/>
+        <Route path='/questoes-prova' element={<TelaQuestoes />}/>
+        <Route path='/anos-enem' element={<AnosEnem />}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
